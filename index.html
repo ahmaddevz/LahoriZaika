@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Photo Slideshow</title>
+
+<style>
+    /* Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        background: #000;
+    }
+
+    /* Slideshow Container */
+    .slideshow {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        background: #000;
+padding-bottom:20px;
+    }
+
+    .slide {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .slide.active {
+        opacity: 1;
+    }
+
+    /* Navigation Buttons */
+    .btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 15px 25px;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: bold;
+        color: #111;
+        border-radius: 50px;
+        transition: 0.3s;
+        user-select: none;
+    }
+
+    .btn:hover {
+        background: #fff;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    #prev { left: 20px; }
+    #next { right: 20px; }
+
+    /* ---------- MOBILE RESPONSIVE BUTTONS ---------- */
+    @media (max-width: 768px) {
+
+        .btn {
+            top: auto;                 /* Remove vertical center */
+            bottom: 20px;              /* Move to bottom */
+            transform: none;           /* Remove Y translation */
+            padding: 18px 30px;        /* Bigger buttons */
+            font-size: 26px;
+        }
+
+        #prev {
+            left: 25%;
+            transform: translateX(-50%);
+        }
+
+        #next {
+            right: 25%;
+            transform: translateX(50%);
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="slideshow">
+
+    <!-- Slides -->
+    <div class="slide active" style="background-image: url('1.jpg');"></div>
+    <div class="slide" style="background-image: url('2.jpg');"></div>
+    <div class="slide" style="background-image: url('3.jpg');"></div>
+    <div class="slide" style="background-image: url('4.jpg');"></div>
+    <div class="slide" style="background-image: url('5.jpg');"></div>
+    <div class="slide" style="background-image: url('6.jpg');"></div>
+    <div class="slide" style="background-image: url('7.jpg');"></div>
+<div class="slide" style="background-image: url('8.jpg');"></div>
+
+    <!-- Navigation Buttons -->
+    <button id="prev" class="btn">❮</button>
+    <button id="next" class="btn">❯</button>
+</div>
+
+<script>
+    const slides = document.querySelectorAll(".slide");
+    let index = 0;
+
+    function showSlide(i) {
+        slides.forEach(slide => slide.classList.remove("active"));
+        slides[i].classList.add("active");
+    }
+
+    document.getElementById("next").addEventListener("click", () => {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+    });
+</script>
+
+</body>
+</html>
